@@ -38,3 +38,8 @@ Mi nombre es {{nombre}} de la ciudad de {{ciudad}}
 <button class="btn btn-primary" (click)='deleteItem(3)'>Eliminar Item</button> <br><br>
 <!--*ngif verifica si la variable statusEliminado es true, de ser asi muestra el mensaje con el itemEliminado-->
 <div *ngIf="statusEliminado; else elseBlock">El item eliminado fue {{itemEliminado}}</div>
+
+<!--Mostrando Lista de comics en un lista con viñetas-->
+<ul>
+    <li *ngFor="let comic of listaComics;let i=index;">{{comic.nombre | uppercase }}</li>
+</ul>
