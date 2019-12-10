@@ -54,6 +54,13 @@ export class MyComponent implements OnInit{
       */
      public itemEliminado : string;
     /**
+     * 
+     * /**
+      * Atributo para verificar si fue eliminado un item
+      * Este atributo controla si se debe mostrar el mensaje de eliminado , cuando se pulse el boton eliminar
+      */
+     public statusEliminado : boolean;
+     /**
    * Evento angular que se ejecuta al iniciar el componente
    */
     ngOnInit(): void {
@@ -61,14 +68,21 @@ export class MyComponent implements OnInit{
         this.nombre = 'Jose Aviles Pacheco';
          //Asinación de un valor a la variable ciudad
         this.ciudad = 'Montería';
+        //Inicializo la variable a false, ya que permitirá controlar si se debe mostrar el mensaje en el template
+        this.statusEliminado = false;
 
         //Instaciación de un objeto ExampleDTO
         this.itemDTO = new ExampleDTO();
         //Creacion de la lista para items ExampleDTO
         this.listaItems = new Array<ExampleDTO>();
+
+        //Se llama el metodo para llenar la lista
         this.llenarLista();
     }
 
+     /**
+   * Metodo para llenar la lista con 5 objetos 
+   */
     public llenarLista() : void {
     
     for (let item = 0; item < 5; item++) {
@@ -93,10 +107,25 @@ export class MyComponent implements OnInit{
 
     }
 
+     /**
+   * Función para eliminar un item de la lista , recibe como argumento un numero
+   */
     deleteItem(param : number){
+        //array.splice(param, 1) permite eliminar de la lista un dato en cierta posición
        let removed = this.listaItems.splice(param, 1);
-       console.log('->',removed);
-       //this.itemEliminado = removed.nombre;
+       //se verifica que se haya eliminado un dato de la lista
+       if(removed.length > 0){
+           //se almacena el nombre del item eliminado
+           this.itemEliminado = removed[0].nombre;
+           //Asigna al estado verdadero, si se elimino algún item
+           this.statusEliminado = true;
+           console.log('Removed->',this.itemEliminado);
+       }else{
+             //Asigna al estado false, si no elimino ningún item
+        this.statusEliminado = false;
+        console.log('No removed->',removed);
+       }
+       
     }
 
 }

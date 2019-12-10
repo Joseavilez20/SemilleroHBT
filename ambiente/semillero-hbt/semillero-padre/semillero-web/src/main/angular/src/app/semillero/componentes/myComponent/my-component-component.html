@@ -1,5 +1,6 @@
 Mi nombre es {{nombre}} de la ciudad de {{ciudad}}
-
+<!--Construcción de la tabla para mostrar los items almacenados en el array ListaItems-->
+<!--La clausula [hidden] permite ocultar el template en caso de que la lista no tenga ningún dato almacenado-->
 <div class="row" [hidden]="listaItems.length === 0">
     <div class="col-12">
         <table class="table">
@@ -17,8 +18,7 @@ Mi nombre es {{nombre}} de la ciudad de {{ciudad}}
                 </tr>
             </thead>
             <tbody>
-                <!--date:"MM/dd/yy"
-                | uppercase-->
+                <!--Se recorre el array con *ngFor para cada uno de los item almacenados en la lista-->
                 <tr *ngFor="let item of listaItems;let i=index;">
                     <th scope="row">{{item.id}}</th>
                     <td>{{item.nombre | uppercase }}</td>
@@ -34,4 +34,7 @@ Mi nombre es {{nombre}} de la ciudad de {{ciudad}}
         </table>
     </div>
 </div>
+<!---Boton para llamanar la funcion deleteItem con el parametro 3-->
 <button class="btn btn-primary" (click)='deleteItem(3)'>Eliminar Item</button> <br><br>
+<!--*ngif verifica si la variable statusEliminado es true, de ser asi muestra el mensaje con el itemEliminado-->
+<div *ngIf="statusEliminado; else elseBlock">El item eliminado fue {{itemEliminado}}</div>
