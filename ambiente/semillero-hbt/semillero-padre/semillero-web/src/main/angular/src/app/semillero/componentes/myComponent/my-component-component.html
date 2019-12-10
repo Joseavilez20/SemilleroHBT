@@ -1,1 +1,37 @@
 Mi nombre es {{nombre}} de la ciudad de {{ciudad}}
+
+<div class="row" [hidden]="listaItems.length === 0">
+    <div class="col-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Editorial</th>
+                    <th scope="col">Tematica</th>
+                    <th scope="col"># paginas</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Autores</th>
+                    <th scope="col">A color</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <!--date:"MM/dd/yy"
+                | uppercase-->
+                <tr *ngFor="let item of listaItems;let i=index;">
+                    <th scope="row">{{item.id}}</th>
+                    <td>{{item.nombre | uppercase }}</td>
+                    <td>{{item.editorial | uppercase }}</td>
+                    <td>{{item.tematica | lowercase }}</td>
+                    <td>{{item.numeroPaginas}}</td>
+                    <td>{{item.precio | number: '.2'}}</td>
+                    <td>{{item.autores | uppercase }}</td>
+                    <td>{{item.acolor ? 'Si' : 'No' }}</td>
+                    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<button class="btn btn-primary" (click)='deleteItem(3)'>Eliminar Item</button> <br><br>

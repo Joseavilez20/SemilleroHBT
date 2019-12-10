@@ -17,6 +17,10 @@ import javax.persistence.PersistenceContext;
 import com.hbt.semillero.dto.ComicDTO;
 import com.hbt.semillero.entidad.Comic;
 
+//Import log4j classes.
+import org.apache.log4j.Logger;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.BasicConfigurator;  
 /**
  * <b>Descripción:<b> Clase que determina el bean para realizar las gestion de
  * los comics
@@ -27,7 +31,10 @@ import com.hbt.semillero.entidad.Comic;
 @Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class GestionarComicBean implements IGestionarComicLocal {
-
+	// Define a static logger variable so that it references the
+    // Logger instance named "MyApp".
+    private static final Logger logger = LogManager.getLogger(GestionarComicBean.class);
+   
 	/**
 	 * Atributo em que se usa para interacturar con el contexto de persistencia.
 	 */
@@ -94,6 +101,9 @@ public class GestionarComicBean implements IGestionarComicLocal {
 	 */
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public List<ComicDTO> consultarComics() {
+		
+		// Set up a simple configuration that logs on the console.
+		logger.debug("Metodo consultarComics fue llamado");
 		List<ComicDTO> resultadosComicDTO = new ArrayList<ComicDTO>();
 		List<Comic> resultados = em.createQuery("select c from Comic c").getResultList();
 		for (Comic comic:resultados) {
