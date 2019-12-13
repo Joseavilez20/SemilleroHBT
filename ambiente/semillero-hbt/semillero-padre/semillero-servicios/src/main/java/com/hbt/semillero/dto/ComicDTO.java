@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import javax.persistence.Transient;
+
 import com.hbt.semillero.entidad.EstadoEnum;
 import com.hbt.semillero.entidad.TematicaEnum;
 
@@ -32,6 +34,14 @@ public class ComicDTO implements Serializable {
 	private LocalDate fechaVenta;
 	private EstadoEnum estadoEnum;
 	private Long cantidad;
+	
+	/**
+	 * Atributos para el calculo del total
+	 */
+	@Transient
+	private float iva;
+	@Transient
+	private double total;
 
 	/**
 	 * Metodo encargado de retornar el valor del atributo id
@@ -248,6 +258,35 @@ public class ComicDTO implements Serializable {
 	public void setCantidad(Long cantidad) {
 		this.cantidad = cantidad;
 	}
+	
+	/**
+	 * Metodo encargado de retornar el valor del atributo iva
+	 * 
+	 * @return el iva asociado a la clase
+	 */
+	
+	public float getIva() {
+		return iva;
+	}
+	
+	/**
+	 * Metodo encargado de modificar el valor del atributo iva
+	 * 
+	 * @param iva
+	 */
+
+	public void setIva(float iva) {
+		this.iva = iva;
+	}
+	/**
+	 * Metodo encargado de retornar el valor del atributo total
+	 * 
+	 * @return El total de acuerdo al iva asociado a la clase
+	 */
+
+	public double getTotal() {
+		return ((precio.doubleValue()*iva)/100)+ precio.doubleValue();
+	}
 
 	/**
 	 * Método encargado de convertir los datos recibidos en JSON al tipo ComicDTO.
@@ -256,6 +295,8 @@ public class ComicDTO implements Serializable {
 	 * @param arg Cadena que representa el objeto complejo JSON.
 	 * @return Instancia con los datos recibidos.
 	 */
+	
+	
 	public static ComicDTO valueOf(String arg) {
 		return JsonUtils.valueOf(arg, ComicDTO.class);
 	}
