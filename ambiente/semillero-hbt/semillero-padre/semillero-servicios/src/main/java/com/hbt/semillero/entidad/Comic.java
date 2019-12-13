@@ -16,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * <b>Descripción:<b> Clase que determina la entidad que permite representar la
@@ -47,6 +48,13 @@ public class Comic implements Serializable {
 	private LocalDate fechaVenta;
 	private EstadoEnum estadoEnum;
 	private Long cantidad;
+	
+	@Transient
+	private float iva;
+	@Transient
+	private double total;
+
+
 
 	/**
 	 * Constructor de la clase.
@@ -289,9 +297,39 @@ public class Comic implements Serializable {
 	}
 
 	/**
+	 * Metodo encargado de retornar el valor del atributo iva
+	 * 
+	 * @return el iva asociado a la clase
+	 */
+	
+	public float getIva() {
+		return iva;
+	}
+	
+	/**
+	 * Metodo encargado de modificar el valor del atributo iva
+	 * 
+	 * @param iva
+	 */
+
+	public void setIva(float iva) {
+		this.iva = iva;
+	}
+	/**
+	 * Metodo encargado de retornar el valor del atributo total
+	 * 
+	 * @return El total de acuerdo al iva asociado a la clase
+	 */
+
+	public double getTotal() {
+		return ((precio.doubleValue()*iva)/100)+ precio.doubleValue();
+	}
+	
+	/**
 	 * @see java.lang.Object#toString() Metodo que permite asociar al objeto un
 	 *      texto representativo
 	 */
+	
 	@Override
 	public String toString() {
 		return "Comic [id=" + id + ", nombre=" + nombre + ", editorial=" + editorial + ", tematica=" + tematicaEnum

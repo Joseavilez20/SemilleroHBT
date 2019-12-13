@@ -135,6 +135,7 @@ public class GestionarComicBean implements IGestionarComicLocal {
 		comicDTO.setFechaVenta(comic.getFechaVenta());
 		comicDTO.setEstadoEnum(comic.getEstadoEnum());
 		comicDTO.setCantidad(comic.getCantidad());
+		
 		return comicDTO;
 	}
 
@@ -162,5 +163,27 @@ public class GestionarComicBean implements IGestionarComicLocal {
 		comic.setEstadoEnum(comicDTO.getEstadoEnum());
 		comic.setCantidad(comicDTO.getCantidad());
 		return comic;
+	}
+	@Override
+	public void calcularTotalIva(){
+		logger.debug("Metodo calcularTotalIva fue llamado");
+		List<ComicDTO> resultadosComicDTO = new ArrayList<ComicDTO>();
+		List<Comic> resultados = em.createQuery("select c from Comic c").getResultList();
+		for (Comic comic:resultados) {
+			if(comic.getTematicaEnum().equals("AVENTURAS") || comic.getTematicaEnum().equals("FANTASTICO") || comic.getTematicaEnum().equals("HISTORICO") )
+			{
+				comic.setIva(5);
+				
+			}else if(comic.getTematicaEnum().equals("BELICO") || comic.getTematicaEnum().equals("CIENCIA_FICCION") || comic.getTematicaEnum().equals("HORROR"))
+			{
+				comic.setIva(16);
+			}else {
+				comic.setIva(10);
+			}
+			
+		}
+		
+		
+		
 	}
 }

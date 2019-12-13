@@ -65,4 +65,12 @@ public interface IGestionarComicLocal {
 	 * @return
 	 */
 	public List<ComicDTO> consultarComics();
+	
+	/**
+	 * 
+	 * Metodo encargado de calcular el valor total 
+	 * 
+	 * @return
+	 */
+	public void calcularTotalIva();
 }
