@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.hbt.semillero.dto.ComicDTO;
 import com.hbt.semillero.dto.ResultadoDTO;
-import com.hbt.semillero.ejb.IGestionarComicLocal;
+import com.hbt.semillero.interfaz.IGestionarComicLocal;
 
 /**
  * <b>Descripción:<b> Clase que determina el servicio rest que permite gestionar

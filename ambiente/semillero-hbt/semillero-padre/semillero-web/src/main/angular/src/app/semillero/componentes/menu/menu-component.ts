@@ -35,6 +35,14 @@ export class MenuComponent implements OnInit {
   public navegarGestionarComic(): void {
     this.router.navigate(['gestionar-comic']);
   }
+   /**
+   * @description Metodo encargado de direccionar al componente de gestionar persona
+   * @author Jose Aviles Pacheco
+   */
+
+  public navegarGestionarPersona(): void {
+    this.router.navigate(['gestionar-persona']);
+  }
 
   /**
    * @description Metodo encargado de direccionar al componente de gestionar comic

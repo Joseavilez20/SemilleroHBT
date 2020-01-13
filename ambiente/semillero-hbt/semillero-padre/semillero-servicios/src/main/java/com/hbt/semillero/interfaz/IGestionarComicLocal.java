@@ -1,4 +1,4 @@
-package com.hbt.semillero.ejb;
+package com.hbt.semillero.interfaz;
 
 import java.util.List;
 
@@ -72,5 +72,5 @@ public interface IGestionarComicLocal {
 	 * 
 	 * @return
 	 */
-	public void calcularTotalIva();
+	//public void calcularTotalIva();
 }

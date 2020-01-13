@@ -16,6 +16,7 @@ import javax.persistence.PersistenceContext;
 
 import com.hbt.semillero.dto.ComicDTO;
 import com.hbt.semillero.entidad.Comic;
+import com.hbt.semillero.interfaz.IGestionarComicLocal;
 
 //Import log4j classes.
 import org.apache.log4j.Logger;
@@ -43,7 +44,7 @@ public class GestionarComicBean implements IGestionarComicLocal {
 
 	/**
 	 * 
-	 * @see com.hbt.semillero.ejb.IGestionarComicLocal#crearComic(com.hbt.semillero.dto.ComicDTO)
+	 * @see com.hbt.semillero.interfaz.IGestionarComicLocal#crearComic(com.hbt.semillero.dto.ComicDTO)
 	 */
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void crearComic(ComicDTO comicNuevo) {
@@ -55,7 +56,7 @@ public class GestionarComicBean implements IGestionarComicLocal {
 
 	/**
 	 * 
-	 * @see com.hbt.semillero.ejb.IGestionarComicLocal#modificarComic(com.hbt.semillero.dto.ComicDTO)
+	 * @see com.hbt.semillero.interfaz.IGestionarComicLocal#modificarComic(com.hbt.semillero.dto.ComicDTO)
 	 */
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void modificarComic(Long id, String nombre, ComicDTO comicNuevo) {
@@ -72,7 +73,7 @@ public class GestionarComicBean implements IGestionarComicLocal {
 
 	/**
 	 * 
-	 * @see com.hbt.semillero.ejb.IGestionarComicLocal#eliminarComic(java.lang.Long)
+	 * @see com.hbt.semillero.interfaz.IGestionarComicLocal#eliminarComic(java.lang.Long)
 	 */
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void eliminarComic(Long idComic) {
@@ -84,7 +85,7 @@ public class GestionarComicBean implements IGestionarComicLocal {
 
 	/**
 	 * 
-	 * @see com.hbt.semillero.ejb.IGestionarComicLocal#consultarComic(java.lang.String)
+	 * @see com.hbt.semillero.interfaz.IGestionarComicLocal#consultarComic(java.lang.String)
 	 */
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public ComicDTO consultarComic(String idComic) {
@@ -97,7 +98,7 @@ public class GestionarComicBean implements IGestionarComicLocal {
 
 	/**
 	 * 
-	 * @see com.hbt.semillero.ejb.IGestionarComicLocal#consultarComics()
+	 * @see com.hbt.semillero.interfaz.IGestionarComicLocal#consultarComics()
 	 */
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public List<ComicDTO> consultarComics() {
@@ -171,7 +172,7 @@ public class GestionarComicBean implements IGestionarComicLocal {
 		
 		return comic;
 	}
-	@Override
+	/*@Override
 	public void calcularTotalIva(){
 		logger.debug("Metodo calcularTotalIva fue llamado");
 		//List<ComicDTO> resultadosComicDTO = new ArrayList<ComicDTO>();
@@ -194,5 +195,5 @@ public class GestionarComicBean implements IGestionarComicLocal {
 		
 		
 		
-	}
+	}*/
 }

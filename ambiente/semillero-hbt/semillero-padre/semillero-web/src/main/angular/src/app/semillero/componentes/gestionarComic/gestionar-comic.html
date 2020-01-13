@@ -3,6 +3,8 @@
         <h1>Gestionar Comic</h1>
         <hr>
 
+        <div class="alert alert-primary" role="alert" *ngIf="mostrarMensaje"> {{mensajeConsulta}}</div>
+
         <div class="row">
             <div class="col-6">
                 <label for="nombreComic">Nombre:</label>
@@ -63,15 +65,44 @@
                 <br>
                 <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="customRadioInline1" class="custom-control-input"
-                        formControlName="color" value="true">
+                        formControlName="color" [value]="true">
                     <label class="custom-control-label" for="customRadioInline1">Si</label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" id="customRadioInline2"  class="custom-control-input"
-                        formControlName="color" value="false">
+                        formControlName="color" [value]="false">
                     <label class="custom-control-label" for="customRadioInline2">No</label>
                 </div>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                
+                    <label for="cantidad">Cantidad:</label>
+                    <input type="number" class="form-control" id="cantidad" min=0 formControlName="cantidad">
+                
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="estado">Estado:</label>
+                    <!--select class="form-control" id="estado" formControlName="estado">
+                        <option value="ACTIVO">ACTIVO</option>
+                        <option value="INACTIVO">INACTIVO</option>
+                        
+                    </select-->
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="estadoRadioInline1" class="custom-control-input"
+                            formControlName="estado" [value]="true">
+                        <label class="custom-control-label" for="estadoRadioInline1">Activo</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="estadoRadioInline2"  class="custom-control-input"
+                            formControlName="estado" [value]="false">
+                        <label class="custom-control-label" for="estadoRadioInline2">Inactivo</label>
+                    </div>
+                </div>
+            
+        </div>
         </div>
         <br>
         <div class="row">

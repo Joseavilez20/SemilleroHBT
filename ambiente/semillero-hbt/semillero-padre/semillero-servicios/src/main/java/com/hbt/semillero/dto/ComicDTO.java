@@ -3,9 +3,6 @@ package com.hbt.semillero.dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
-import javax.persistence.Transient;
-
 import com.hbt.semillero.entidad.EstadoEnum;
 import com.hbt.semillero.entidad.TematicaEnum;
 
@@ -38,9 +35,9 @@ public class ComicDTO implements Serializable {
 	/**
 	 * Atributos para el calculo del total
 	 */
-	@Transient
+
 	private float iva;
-	@Transient
+	
 	private double total;
 
 	/**

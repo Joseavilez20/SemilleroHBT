@@ -1,0 +1,92 @@
+<div class="container">
+    <form [formGroup]="gestionarPersonaForm">
+        <h1>Gestionar Persona</h1>
+        <hr>
+
+        <div class="alert alert-primary" role="alert" *ngIf="mostrarMensaje"> {{mensajeConsulta}}</div>
+
+        <div class="row">
+            <div class="col-6">
+                <label for="nombrePersona">Nombre:</label>
+                <input type="text" class="form-control" id="nombrePersona" formControlName="nombre"
+                    [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }" maxlength="50">
+                <div *ngIf="submitted && f.nombre.errors">
+                    <span class="text-danger" *ngIf="f.nombre.errors.required">Campo requerido.</span>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="tipoDocumento">Tipo documento:</label>
+                    <select class="form-control" id="tipoDocumento" formControlName="tipoDocumento">
+                        <option value="CC">CEDULA DE CIUDADANIA</option>
+                        <option value="TI">TARJETA DE IDENTIDAD</option>
+                        
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+           
+            <div class="col-6">
+                <label for="numeroDocumento">Numero documento:</label>
+                <input type="text" class="form-control" id="numeroDocumento" formControlName="numeroDocumento">
+            </div>
+            <div class="col-6">
+                <label for="fechaNacimiento">Fecha nacimiento:</label>
+                <input type="date" class="form-control" id="fechaNacimiento" formControlName="fechaNacimiento">
+            </div>
+
+        </div>
+
+        <br>
+        <div class="row">
+            <div class="col-6">
+                <span></span>
+            </div>
+            <div class="col-6 text-right">
+                <button type="button" class="btn btn-primary" (click)="crearActualizarPersona()">Crear/Editar</button>
+            </div>
+        </div>
+
+        <br>
+        
+        <div class="col">
+            <div class="row" [hidden]="listaPersonas.length === 0">
+               <div class="col-12">
+                   <table class="table">
+                       <thead>
+                           <tr>
+                               <th scope="col">#</th>
+                               <th scope="col">Nombre</th>
+                               <th scope="col">Tipo documento</th>
+                               <th scope="col">Numero documento</th>
+                               <th scope="col">fecha nacimiento</th>
+                               <th scope="col">Acciones</th>
+                           </tr>
+                       </thead>
+                       <tbody>
+                           <!--date:"MM/dd/yy"
+                           | uppercase-->
+                           <tr *ngFor="let persona of listaPersonas;let i=index;">
+                               <th scope="row">{{persona.id}}</th>
+                               <td>{{persona.nombre | uppercase }}</td>
+                               <td>{{persona.tipoDocumento}}</td>
+                               <td>{{persona.numeroDocumento}}</td>
+                               <td>{{persona.fechaNacimiento}}</td>
+                               <td>
+                                   <i class="fas fa-search 2x ml-1" (click)="consultarPersona(i)" title="Consultar"></i>
+                                   <i class="fas fa-pencil-alt 2x ml-1"  [routerLink]="['/bienvenida',persona]" title="Editar"></i>
+                                   <i class="far fa-times-circle 2x ml-1" (click)="editarPersona(persona)" title="Eliminar"></i>
+                               </td>
+                           </tr>
+                       </tbody>
+                   </table>
+               </div>
+           </div>
+           </div>
+    </form>
+
+</div>
+

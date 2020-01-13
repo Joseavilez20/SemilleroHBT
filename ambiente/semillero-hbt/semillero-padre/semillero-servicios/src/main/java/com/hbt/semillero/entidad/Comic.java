@@ -49,9 +49,9 @@ public class Comic implements Serializable {
 	private EstadoEnum estadoEnum;
 	private Long cantidad;
 	
-	@Transient
+	
 	private float iva;
-	@Transient
+	
 	private double total;
 
 
@@ -301,7 +301,7 @@ public class Comic implements Serializable {
 	 * 
 	 * @return el iva asociado a la clase
 	 */
-	
+	@Transient
 	public float getIva() {
 		return iva;
 	}
@@ -320,7 +320,7 @@ public class Comic implements Serializable {
 	 * 
 	 * @return El total de acuerdo al iva asociado a la clase
 	 */
-
+	@Transient
 	public double getTotal() {
 		return ((precio.doubleValue()*iva)/100)+ precio.doubleValue();
 	}

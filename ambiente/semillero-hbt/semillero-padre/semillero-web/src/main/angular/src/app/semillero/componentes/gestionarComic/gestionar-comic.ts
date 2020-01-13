@@ -3,6 +3,7 @@ import { ComicDTO } from '../../dto/comic.dto';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { GestionarComicService } from '../../services/gestionar-comic.service';
 
 /**
  * @description Componenete gestionar comic, el cual contiene la logica CRUD
@@ -38,21 +39,27 @@ export class GestionarComicComponent implements OnInit {
      */
     public submitted : boolean;
 
+    public mostrarMensaje : boolean;
+
+    public mensajeConsulta : string;
     /**
      * @description Este es el constructor del componente GestionarComicComponent
      * @author Diego Fernando Alvarez Silva <dalvarez@heinsohn.com.co>
      */
     constructor(private fb : FormBuilder,
-        private router : Router) {
+        private router : Router,
+        private gestionarComicService : GestionarComicService) {
         this.gestionarComicForm = this.fb.group({
             nombre : [null, Validators.required],
             editorial : [null],
-            tematica : [null],
+            tematica : ['AVENTURAS'],
             coleccion : [null],
             numeroPaginas : [null],
             precio : [null],
             autores : [null],
-            color : [null]
+            color : [true],
+            cantidad : [0],
+            estado :[true]
         });
     }
 
@@ -64,8 +71,15 @@ export class GestionarComicComponent implements OnInit {
         console.log("Ingreso al al evento oninit");
         this.comic = new ComicDTO();
         this.listaComics = new Array<ComicDTO>();
+        this.consultarComics();
     }
-
+    private consultarComics() : void{
+        this.gestionarComicService.consultarComics().subscribe(res => {
+            this.listaComics = res;
+        }, err => {
+            console.log('error en consultarComics(): ', err)
+        })
+    }
     /**
      * @description Metodo que permite validar el formulario y crear o actulizar un comic
      */
@@ -74,22 +88,42 @@ export class GestionarComicComponent implements OnInit {
         if(this.gestionarComicForm.invalid) {
             return;
         }
-        this.idComic++;
+        
         this.comic = new ComicDTO();
-        this.comic.id = this.idComic + "";
         this.comic.nombre = this.gestionarComicForm.controls.nombre.value;
         this.comic.editorial = this.gestionarComicForm.controls.editorial.value;
         this.comic.tematica = this.gestionarComicForm.controls.tematica.value;
+        console.log('TEMATICA--->',this.comic.tematica);
         this.comic.coleccion = this.gestionarComicForm.controls.coleccion.value;
         this.comic.numeroPaginas = this.gestionarComicForm.controls.numeroPaginas.value;
         this.comic.precio = this.gestionarComicForm.controls.precio.value;
         this.comic.autores = this.gestionarComicForm.controls.autores.value;
         this.comic.color = this.gestionarComicForm.controls.color.value;
+        this.comic.cantidad = this.gestionarComicForm.controls.cantidad.value;
+        this.comic.estado = 'INACTIVO';
+        if(this.gestionarComicForm.controls.estado.value){
+            this.comic.estado = 'ACTIVO';
+            console.log('estado->',this.comic.estado);
+        }
         
-        this.listaComics.push(this.comic);
-        this.limpiarFormulario();
+        
+        this.gestionarComicService.crearComic(this.comic).subscribe(res => {
+            this.mensajeConsulta = res.mensajeEjecucion;
+            if(res.exitoso){
+                this.limpiarFormulario();
+                this.consultarComics();
+                this.mostrarMensaje = true;
+            }
+
+        }, err => {
+            console.log('error en la consulta crear comic');
+        })
+        //this.listaComics.push(this.comic);
+     
         
     }
+
+   
 
     /**
      * Metodo que permite consultar un comic de la tabla y sus detalles e inhabilitar el formulario
@@ -125,12 +159,14 @@ export class GestionarComicComponent implements OnInit {
         this.submitted = false;
         this.gestionarComicForm.controls.nombre.setValue(null);
         this.gestionarComicForm.controls.editorial.setValue(null);
-        this.gestionarComicForm.controls.tematica.setValue(null);
+        this.gestionarComicForm.controls.tematica.setValue('AVENTURAS');
         this.gestionarComicForm.controls.coleccion.setValue(null);
-        this.gestionarComicForm.controls.numeroPaginas.setValue(null);
+        this.gestionarComicForm.controls.numeroPaginas.setValue(0);
         this.gestionarComicForm.controls.precio.setValue(null);
         this.gestionarComicForm.controls.autores.setValue(null);
-        this.gestionarComicForm.controls.color.setValue(null);
+        this.gestionarComicForm.controls.color.setValue(true);
+        this.gestionarComicForm.controls.tematica.setValue(0);
+        this.gestionarComicForm.controls.estado.setValue(true);
     }
 
     /**
